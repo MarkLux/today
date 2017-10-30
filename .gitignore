@@ -1,0 +1,38 @@
+# Created by .ignore support plugin (hsz.mobi)
+target/
+*.xlsx
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+*.zip
+*.tmp
+
+### NetBeans ###
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+.DS_Store
+
+.mvn/
+mvnw
+mvnw.cmd
+
+.project
+.classpath
+logs/
+src/main/resources/application.properties
