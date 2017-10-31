@@ -21,7 +21,6 @@ public class CalendarController {
     @Autowired
     CalendarService calendarService;
 
-    @ResponseBody
     @PostMapping
     public Response createNewCalendar(@RequestBody @Valid CreateCalendarRequest request, BindingResult bindingResult) throws BaseException {
         if (bindingResult.hasErrors()) {
