@@ -8,9 +8,9 @@
     </select>
 
     <insert id="createUser" useGeneratedKeys="true"
-            keyProperty="id">
+            keyProperty="id" parameterType="com.marklux.domain.User">
         INSERT INTO users
-        (`login_name`, `name`, `mobile`, `password`, `signature`, `sex`, `add_on`, `created_at`, `updated_at`) VALUES ('marklux', 'lumin', '15076051320', '123456', 'this is me.', '1', 'nothing', 'f', 'f');
-
+        (`login_name`, `name`, `mobile`, `password`, `signature`, `sex`, `add_on`, `created_at`, `updated_at`)
+        VALUES (#{lo}, 'lumin', '15076051320', '123456', 'this is me.', '1', 'nothing', 'f', 'f');
     </insert>
 </mapper>

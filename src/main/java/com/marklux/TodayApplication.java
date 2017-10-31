@@ -3,7 +3,6 @@ package com.marklux;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-
 /**
  * Created by mark on 17/10/23.
  */

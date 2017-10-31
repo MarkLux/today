@@ -7,7 +7,10 @@ import com.marklux.domain.User;
  */
 public interface UserMapper   {
     User findUserById(Long id);
+
     User findUserBy(String column,String value);
+
     User updateUser(Long id,User user);
-    User createUser(User user);
+
+    void createUser(User user);
 }

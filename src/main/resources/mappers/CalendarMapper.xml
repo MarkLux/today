@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.marklux.mappers.CalendarMapper">
+    <insert id="createCalendar" useGeneratedKeys="true" keyProperty="id" parameterType="com.marklux.domain.Calendar">
+        INSERT INTO calendars(`title`, `description`, `creator_id`, `subscibed`, `created_at`, `updated_at`, `is_public`, `password`, `good_pick`, `bad_pick`)
+        VALUES (#{title},#{description},#{creatorId},#{subsribed},#{createdAt},#{updatedAt},#{isPublic},#{password},#{goodPick},#{badPick});
+    </insert>
+    <select id="getCalendar" resultType="com.marklux.domain.Calendar">
+        SELECT * FROM calendars WHERE id = #{id}
+    </select>
+    <select id="getCalendarBy" resultType="com.marklux.domain.Calendar">
+        SELECT * FROM calendars WHERE #{key} = #{value}
+    </select>
+    <update id="updaetCalendar" parameterType="com.marklux.domain.Calendar">
+        UPDATE calendars SET
+          title = #{title}
+          description = #{description}
+          creator_id = #{creatorId}
+          subscribed = #{subscribed}
+          created_at = #{createdAt}
+          updated_at = #{updatedAt}
+          is_public = #{isPublic}
+          password = #{password}
+          good_pick = #{goodPick}
+          bad_pick = #{badPick}
+        WHERE id = #{id}
+    </update>
+    <delete id="deleteCalendar">
+        DELETE FROM calendars WHERE id = #{id}
+    </delete>
+</mapper>
