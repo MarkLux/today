@@ -1,7 +1,7 @@
 package com.marklux.services;
 
 import com.marklux.domain.Calendar;
-import com.marklux.mappers.CalendarMapper;
+import com.marklux.mapper.CalendarMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

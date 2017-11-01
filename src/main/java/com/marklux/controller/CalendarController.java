@@ -1,6 +1,7 @@
 package com.marklux.controller;
 
 import com.marklux.common.Response;
+import com.marklux.common.Utils;
 import com.marklux.domain.Calendar;
 import com.marklux.dto.request.CreateCalendarRequest;
 import com.marklux.exception.BaseException;
@@ -11,6 +12,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by mark on 17/10/31.
@@ -27,9 +30,10 @@ public class CalendarController {
             throw new FormValidatorException(bindingResult);
         }
         Calendar calendar = new Calendar();
-        Long currentTime = System.currentTimeMillis();
+        Long currentTime = Utils.createTimestamp();
         calendar.setTitle(request.getTitle());
         calendar.setDescription(request.getDescription());
+        calendar.setSubscribed(0);
         calendar.setIsPublic(request.getIsPublic());
         calendar.setGoodPick(request.getGoodPick());
         calendar.setBadPick(request.getBadPick());
@@ -38,6 +42,9 @@ public class CalendarController {
 
         long newId = calendarService.createCalendar(calendar);
 
-        return new Response(0,newId);
+        Map<String,Long> resultMap = new HashMap<>();
+        resultMap.put("calendarId",newId);
+
+        return new Response(0, resultMap);
     }
 }

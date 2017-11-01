@@ -2,15 +2,32 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 
-<mapper namespace="com.marklux.mappers.UserMapper">
-    <select id="findUserById" resultType="com.marklux.domain.User">
-        select * from user where id = #{id};
+<mapper namespace="com.marklux.mapper.UserMapper">
+    <select id="getUserById" resultType="com.marklux.domain.User">
+        SELECT * FROM users where id = #{id};
     </select>
-
-    <insert id="createUser" useGeneratedKeys="true"
-            keyProperty="id" parameterType="com.marklux.domain.User">
-        INSERT INTO users
-        (`login_name`, `name`, `mobile`, `password`, `signature`, `sex`, `add_on`, `created_at`, `updated_at`)
-        VALUES (#{lo}, 'lumin', '15076051320', '123456', 'this is me.', '1', 'nothing', 'f', 'f');
+    <select id="getUserByName" resultType="com.marklux.domain.User">
+        SELECT * FROM users where name = #{name};
+    </select>
+    <select id="getUserBy" resultType="com.marklux.domain.User">
+        SELECT * FROM users where #{key} = #{value};
+    </select>
+    <insert id="createUser" useGeneratedKeys="true" keyProperty="id" parameterType="com.marklux.domain.User">
+        INSERT INTO users(name,password,signature,sex,add_on,created_at,updated_at)
+        VALUES (#{name},#{password},#{signature},#{sex},#{addOn},#{createdAt},#{updatedAt});
     </insert>
+    <update id="updateUser" parameterType="com.marklux.domain.User">
+        UPDATE users SET
+        name = #{name},
+        password = #{password},
+        signature = #{signature},
+        sex = #{sex},
+        add_on = #{addOn},
+        created_at = #{createdAt},
+        updated_at = #{updatedAt}
+        WHERE id = #{id};
+    </update>
+    <delete id="deleteUser">
+        DELETE FROM users WHERE id = #{id};
+    </delete>
 </mapper>

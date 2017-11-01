@@ -3,6 +3,8 @@ package com.marklux.config;
 import com.alibaba.druid.pool.DruidDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.mapper.MapperScannerConfigurer;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,7 +14,9 @@ import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import java.sql.SQLException;
+import java.util.Map;
 
+import static com.marklux.config.ConstantSetting.MAPPER_PACKAGE;
 import static com.marklux.config.ConstantSetting.MODEL_PACKAGE;
 
 
@@ -71,7 +75,7 @@ public class MyBatisConfig {
     }
 
     // 注入到IoC容器
-    @Bean(name = "sqlSessionFactory")
+    @Bean
     public SqlSessionFactory sqlSessionFactoryBean() throws Exception {
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
         // 数据源注入
@@ -84,5 +88,20 @@ public class MyBatisConfig {
         bean.setConfigLocation(resolver.getResource("classpath:mybatis-config.xml"));
 
         return bean.getObject();
+    }
+
+    /*
+     * MapperScanner
+     */
+    @Configuration
+    @AutoConfigureAfter(MyBatisConfig.class)
+    public static class MyBatisMapperScannerConfig {
+        @Bean
+        public MapperScannerConfigurer mapperScannerConfigurer() {
+            MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
+            mapperScannerConfigurer.setSqlSessionFactoryBeanName("sqlSessionFactoryBean");
+            mapperScannerConfigurer.setBasePackage(MAPPER_PACKAGE);
+            return mapperScannerConfigurer;
+        }
     }
 }

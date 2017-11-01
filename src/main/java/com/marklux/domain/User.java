@@ -6,12 +6,10 @@ package com.marklux.domain;
 public class User implements Model {
 
     private Long id;
-    private String loginName;
     private String name;
-    private String mobile;
     private String password;
     private String signature;
-    private String sex;
+    private int sex;
     private String addOn;
     private Long createdAt;
     private Long updatedAt;
@@ -24,28 +22,12 @@ public class User implements Model {
         this.id = id;
     }
 
-    public String getLoginName() {
-        return loginName;
-    }
-
-    public void setLoginName(String loginName) {
-        this.loginName = loginName;
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getMobile() {
-        return mobile;
-    }
-
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
     }
 
     public String getPassword() {
@@ -64,11 +46,11 @@ public class User implements Model {
         this.signature = signature;
     }
 
-    public String getSex() {
+    public int getSex() {
         return sex;
     }
 
-    public void setSex(String sex) {
+    public void setSex(int sex) {
         this.sex = sex;
     }
 

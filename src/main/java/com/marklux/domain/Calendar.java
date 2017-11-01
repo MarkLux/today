@@ -9,6 +9,7 @@ public class Calendar {
     private String description;
     private long creatorId;
     private int subscribed;
+    private String picture;
     private long createdAt;
     private long updatedAt;
     private int isPublic;
@@ -30,6 +31,14 @@ public class Calendar {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 
     public String getDescription() {

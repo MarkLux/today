@@ -1,4 +1,4 @@
-package com.marklux.mappers;
+package com.marklux.mapper;
 
 import com.marklux.domain.Calendar;
 import java.util.Collection;
