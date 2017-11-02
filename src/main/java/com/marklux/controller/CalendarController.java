@@ -42,9 +42,14 @@ public class CalendarController {
 
         long newId = calendarService.createCalendar(calendar);
 
-        Map<String,Long> resultMap = new HashMap<>();
-        resultMap.put("calendarId",newId);
+        Map<String, Long> resultMap = new HashMap<>();
+        resultMap.put("calendarId", newId);
 
         return new Response(0, resultMap);
+    }
+
+    @GetMapping("/{id}")
+    public Response getToday(@PathVariable long id) throws BaseException {
+        return new Response(0, calendarService.getToday(id));
     }
 }

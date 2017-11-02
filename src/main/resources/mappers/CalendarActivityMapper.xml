@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.marklux.mapper.CalendarActivityMapper">
+    <insert id="createCalendarActivity" useGeneratedKeys="true" keyProperty="id" parameterType="com.marklux.domain.CalendarActivity">
+        INSERT INTO calendar_activites(`calendar_id`, `name`,`good`,`bad`, `weekend_only`)
+        VALUES (#{calendarId},#{name},#{good},#{bad},#{weekendOnly});
+    </insert>
+    <select id="getCalendarActivity" resultType="com.marklux.domain.CalendarActivity">
+        SELECT * FROM calendar_activities WHERE id = #{id}
+    </select>
+    <select id="getActivitiesByCalendarId" resultType="com.marklux.domain.CalendarActivity">
+        SELECT * FROM calendar_activities WHERE calendar_id = #{calendarId}
+    </select>
+    <update id="updateCalendarActivity" parameterType="com.marklux.domain.CalendarActivity">
+        UPDATE calendar_activities SET
+        name = #{name}
+        good = #{good}
+        bad = #{bad}
+        weekend_only = #{weekendOnly}
+        WHERE id = #{id}
+    </update>
+    <delete id="deleteCalendarActivity">
+        DELETE FROM calendar_activities WHERE id = #{id}
+    </delete>
+</mapper>

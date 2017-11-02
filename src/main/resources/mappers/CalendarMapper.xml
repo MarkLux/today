@@ -13,7 +13,7 @@
     <select id="getCalendarBy" resultType="com.marklux.domain.Calendar">
         SELECT * FROM calendars WHERE #{key} = #{value}
     </select>
-    <update id="updaetCalendar" parameterType="com.marklux.domain.Calendar">
+    <update id="updateCalendar" parameterType="com.marklux.domain.Calendar">
         UPDATE calendars SET
           title = #{title}
           description = #{description}
