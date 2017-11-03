@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.marklux.mapper.CalendarSubscribedMapper">
+    <insert id="createSubscribed">
+        INSERT INTO calendar_subscribe
+        VALUES (#{calendarId},#{userId})
+    </insert>
+    <select id="getSubscribed" resultType="com.marklux.domain.CalendarSubscribe">
+        SELECT * FROM calendar_subscribe WHERE user_id = #{userId}
+    </select>
+    <delete id="deleteSubscribed">
+        DELETE FROM calendar_subscribe
+        WHERE calendar_id = #{calendarId}
+        AND user_id = #{userId}
+    </delete>
+</mapper>

@@ -52,4 +52,9 @@ public class CalendarController {
     public Response getToday(@PathVariable long id) throws BaseException {
         return new Response(0, calendarService.getToday(id));
     }
+
+    @GetMapping("/subscribed/{id}")
+    public Response getSubscribed(@PathVariable long id) throws BaseException {
+        return new Response(0,calendarService.getSubscribed(id));
+    }
 }

@@ -1,12 +1,17 @@
 package com.marklux.services;
 
+import com.marklux.common.Utils;
 import com.marklux.domain.Calendar;
 import com.marklux.domain.CalendarActivity;
+import com.marklux.domain.CalendarItem;
+import com.marklux.domain.CalendarSubscribe;
 import com.marklux.dto.response.TodayResponse;
 import com.marklux.exception.BaseException;
 import com.marklux.exception.general.ResourceNotExistException;
 import com.marklux.mapper.CalendarActivityMapper;
+import com.marklux.mapper.CalendarItemMapper;
 import com.marklux.mapper.CalendarMapper;
+import com.marklux.mapper.CalendarSubscribedMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +28,17 @@ public class CalendarService {
     private CalendarMapper calendarMapper;
     @Autowired
     private CalendarActivityMapper calendarActivityMapper;
+    @Autowired
+    private CalendarItemMapper calendarItemMapper;
+    @Autowired
+    private CalendarSubscribedMapper calendarSubscribedMapper;
+
+    private int iday;// seed of today
+
+    public CalendarService() {
+        java.util.Calendar now = java.util.Calendar.getInstance();
+        iday = now.get(java.util.Calendar.YEAR) * 10000 + (now.get(java.util.Calendar.MONTH) + 1) * 100 + now.get(java.util.Calendar.DAY_OF_MONTH);
+    }
 
     public long createCalendar(Calendar calendar) {
         calendarMapper.createCalendar(calendar);
@@ -49,13 +65,13 @@ public class CalendarService {
         }
 
         Collection<CalendarActivity> activities = calendarActivityMapper.getActivitiesByCalendarId(calendarId);
-        System.out.println(activities);
         List<CalendarActivity> picked = pickRandomActivities(activities, calendar.getBadPick() + calendar.getGoodPick());
 
         TodayResponse response = new TodayResponse();
 
         response.setCalendarName(calendar.getTitle());
         response.setCalendarId(calendarId);
+        response.setCalendarPicture(calendar.getPicture());
         for (int i = 0; i < calendar.getGoodPick(); i++) {
             if (picked.get(i) == null) {
                 continue;
@@ -69,14 +85,45 @@ public class CalendarService {
             response.addActivity(picked.get(i),true);
         }
 
+        Collection<CalendarItem> items = calendarItemMapper.getItems(calendarId);
+
+        for (CalendarItem it:items) {
+            response.addRecommend(it.getTitle(),pickRandomItems(it.getItem(),it.getPickCount()));
+        }
+
+        return response;
+    }
+
+    public List<TodayResponse> getSubscribed(long userId) throws BaseException {
+        Collection<CalendarSubscribe> subscribes = calendarSubscribedMapper.getSubscribed(userId);
+        List<TodayResponse> response = new ArrayList<>();
+        for (CalendarSubscribe s:subscribes) {
+            response.add(getToday(s.getCalendarId()));
+        }
         return response;
     }
 
     private List<CalendarActivity> pickRandomActivities(Collection<CalendarActivity> activities, int num) {
         List<CalendarActivity> list = new ArrayList<>(activities);
-        for (int i=num;i<list.size();i++) {
-            list.remove(i);
+        List<CalendarActivity> copy = new ArrayList<>(list);
+        for (int i=0;i<list.size() - num;i++) {
+            int index = Utils.getRandom(this.iday,i) % copy.size();
+            copy.remove(index);
         }
-        return list;
+        return copy;
+    }
+
+    private List<String> pickRandomItems(String items, int num) {
+        String[] splits = items.split(" ");
+        List<String> list = new ArrayList<>();
+        for (int i=0;i<splits.length;i++) {
+            list.add(splits[i]);
+        }
+        List<String> copy = new ArrayList<>(list);
+        for (int i=0;i<list.size() - num;i++) {
+            int index = Utils.getRandom(this.iday,i) % copy.size();
+            copy.remove(index);
+        }
+        return copy;
     }
 }

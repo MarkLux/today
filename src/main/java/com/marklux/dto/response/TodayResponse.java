@@ -11,6 +11,7 @@ import java.util.List;
 public class TodayResponse {
 
     private String calendarName;
+    private String calendarPicture;
     private long calendarId;
     private List<Activity> good;
     private List<Activity> bad;
@@ -20,6 +21,22 @@ public class TodayResponse {
         this.good = new ArrayList<>();
         this.bad = new ArrayList<>();
         this.recommend = new ArrayList<>();
+    }
+
+    public String getCalendarPicture() {
+        return calendarPicture;
+    }
+
+    public void setCalendarPicture(String calendarPicture) {
+        this.calendarPicture = calendarPicture;
+    }
+
+    public List<Recommend> getRecommend() {
+        return recommend;
+    }
+
+    public void setRecommend(List<Recommend> recommend) {
+        this.recommend = recommend;
     }
 
     public String getCalendarName() {
@@ -63,6 +80,10 @@ public class TodayResponse {
         }
     }
 
+    public void addRecommend(String title,List<String> items) {
+        this.recommend.add(new Recommend(title,items));
+    }
+
     public class Activity {
         private String title;
         private String description;
@@ -92,6 +113,11 @@ public class TodayResponse {
     public class Recommend {
         private String name;
         private List<String> items;
+
+        public Recommend(String name, List<String> items) {
+            this.name = name;
+            this.items = items;
+        }
 
         public String getName() {
             return name;

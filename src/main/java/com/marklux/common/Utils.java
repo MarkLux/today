@@ -16,7 +16,7 @@ public class Utils {
 
     // 胡乱写的主随机数生成函数
 
-    public int getRandom(int daySeed, int indexSeed) {
+    public static int getRandom(int daySeed, int indexSeed) {
         int n = daySeed % 11117;
         for (int i = 0; i < 100 + indexSeed; i++) {
             n = n * n;
