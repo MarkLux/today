@@ -2,7 +2,6 @@ package com.marklux.controller;
 
 import com.marklux.common.Response;
 import com.marklux.services.CalendarService;
-import com.marklux.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,8 +13,6 @@ import org.springframework.web.bind.annotation.*;
 public class PiazzaController {
     @Autowired
     private CalendarService calendarService;
-    @Autowired
-    private UserService userService;
 
     @GetMapping("/most-subscribed")
     public Response getMostSubscribed() {
@@ -26,5 +23,12 @@ public class PiazzaController {
     public Response getAll(@RequestParam(required = false,defaultValue = "1") int page,
                            @RequestParam(required = false,defaultValue = "15") int size) {
         return new Response(0,calendarService.getCalendars(page,size));
+    }
+
+    @GetMapping("/search")
+    public Response search(@RequestParam(required = true) String keyword,
+                           @RequestParam(required = false,defaultValue = "1") int page,
+                           @RequestParam(required = false,defaultValue = "15") int size) {
+        return new Response(0,calendarService.getCalendarsLike(keyword,page,size));
     }
 }

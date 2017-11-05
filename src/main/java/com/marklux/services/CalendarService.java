@@ -78,6 +78,15 @@ public class CalendarService {
     }
 
     /**
+     * 分页获取全部的黄历，创建时间倒序
+     */
+
+    public List<Calendar> getCalendarsLike(String key,int page,int size) {
+        key = '%' + key + '%';
+        return new ArrayList<>(calendarMapper.getCalendarLike(key,size*(page-1),size));
+    }
+
+    /**
      * 获取指定黄历的今天的数据
      */
 

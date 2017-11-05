@@ -13,12 +13,13 @@
         SELECT * FROM users where #{key} = #{value};
     </select>
     <insert id="createUser" useGeneratedKeys="true" keyProperty="id" parameterType="com.marklux.domain.User">
-        INSERT INTO users(name,password,signature,sex,add_on,created_at,updated_at)
-        VALUES (#{name},#{password},#{signature},#{sex},#{addOn},#{createdAt},#{updatedAt});
+        INSERT INTO users(name,avator,password,signature,sex,add_on,created_at,updated_at)
+        VALUES (#{name},#{avator},#{password},#{signature},#{sex},#{addOn},#{createdAt},#{updatedAt});
     </insert>
     <update id="updateUser" parameterType="com.marklux.domain.User">
         UPDATE users SET
         name = #{name},
+        avator = #{avator},
         password = #{password},
         signature = #{signature},
         sex = #{sex},

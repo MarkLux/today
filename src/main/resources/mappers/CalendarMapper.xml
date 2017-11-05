@@ -19,6 +19,11 @@
     <select id="getCalendars" resultType="com.marklux.domain.Calendar">
         SELECT id,title,picture,subscribed,is_public,creator_id FROM calendars ORDER BY created_at DESC LIMIT #{page},#{size};
     </select>
+    <select id="getCalendarLike" resultType="com.marklux.domain.Calendar">
+        SELECT id,title,picture,subscribed,is_public,creator_id FROM calendars
+        WHERE title LIKE #{key}
+        ORDER BY created_at DESC LIMIT #{page},#{size};
+    </select>
     <update id="updateCalendar" parameterType="com.marklux.domain.Calendar">
         UPDATE calendars SET
           title = #{title}
