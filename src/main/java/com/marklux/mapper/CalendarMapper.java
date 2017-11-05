@@ -1,6 +1,8 @@
 package com.marklux.mapper;
 
 import com.marklux.domain.Calendar;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.Collection;
 
 /**
@@ -16,4 +18,8 @@ public interface CalendarMapper {
     int updateCalendar(Calendar calendar);
 
     int deleteCalendar(long Id);
+
+    Collection<Calendar> getMostSubscribed(@Param("num") int num);
+
+    Collection<Calendar> getCalendars(@Param("page") int page,@Param("size") int size);
 }

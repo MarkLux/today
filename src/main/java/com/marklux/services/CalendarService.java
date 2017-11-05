@@ -40,6 +40,10 @@ public class CalendarService {
         iday = now.get(java.util.Calendar.YEAR) * 10000 + (now.get(java.util.Calendar.MONTH) + 1) * 100 + now.get(java.util.Calendar.DAY_OF_MONTH);
     }
 
+    /**
+     * 创建黄历
+     */
+
     public long createCalendar(Calendar calendar) {
         calendarMapper.createCalendar(calendar);
         return calendar.getId();
@@ -56,6 +60,26 @@ public class CalendarService {
     public boolean deleteCalendar(long Id) {
         return calendarMapper.deleteCalendar(Id) == 1;
     }
+
+    /**
+     * 获取推荐黄历列表，返回订阅数量最多的几个
+     */
+
+    public List<Calendar> getMostSubscribed(int num) {
+        return new ArrayList<>(calendarMapper.getMostSubscribed(num));
+    }
+
+    /**
+     * 分页获取全部的黄历，创建时间倒序
+     */
+
+    public List<Calendar> getCalendars(int page,int size) {
+        return new ArrayList<>(calendarMapper.getCalendars(size*(page-1),size));
+    }
+
+    /**
+     * 获取指定黄历的今天的数据
+     */
 
     public TodayResponse getToday(long calendarId) throws BaseException {
         // 构建随机池
@@ -94,14 +118,9 @@ public class CalendarService {
         return response;
     }
 
-    public List<TodayResponse> getSubscribed(long userId) throws BaseException {
-        Collection<CalendarSubscribe> subscribes = calendarSubscribedMapper.getSubscribed(userId);
-        List<TodayResponse> response = new ArrayList<>();
-        for (CalendarSubscribe s:subscribes) {
-            response.add(getToday(s.getCalendarId()));
-        }
-        return response;
-    }
+    /**
+     * 内部方法，从日历项中根据种子随机获取指定数量的
+     */
 
     private List<CalendarActivity> pickRandomActivities(Collection<CalendarActivity> activities, int num) {
         List<CalendarActivity> list = new ArrayList<>(activities);
@@ -112,6 +131,10 @@ public class CalendarService {
         }
         return copy;
     }
+
+    /**
+     * 内部方法，从推荐项中根据种子随机获取指定数量的
+     */
 
     private List<String> pickRandomItems(String items, int num) {
         String[] splits = items.split(" ");

@@ -16,6 +16,7 @@ public class UserLoginResponse {
         u.setUpdatedAt(user.getUpdatedAt());
         u.setSex(user.getSex());
         u.setSignature(user.getSignature());
+        this.user = u;
     }
 
     public String getToken() {

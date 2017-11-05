@@ -8,7 +8,10 @@
         VALUES (#{calendarId},#{userId})
     </insert>
     <select id="getSubscribed" resultType="com.marklux.domain.CalendarSubscribe">
-        SELECT * FROM calendar_subscribe WHERE user_id = #{userId}
+        SELECT * FROM calendar_subscribe WHERE user_id = #{userId};
+    </select>
+    <select id="getSubscribe" resultType="com.marklux.domain.CalendarSubscribe">
+        SELECT * FROM calendar_subscribe WHERE user_id = #{userId} AND calendar_id = #{calendarId};
     </select>
     <delete id="deleteSubscribed">
         DELETE FROM calendar_subscribe

@@ -3,6 +3,7 @@ package com.marklux.controller;
 import com.marklux.common.Response;
 import com.marklux.common.Utils;
 import com.marklux.domain.Calendar;
+import com.marklux.domain.User;
 import com.marklux.dto.request.CreateCalendarRequest;
 import com.marklux.exception.BaseException;
 import com.marklux.exception.general.FormValidatorException;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
@@ -51,10 +53,5 @@ public class CalendarController {
     @GetMapping("/{id}")
     public Response getToday(@PathVariable long id) throws BaseException {
         return new Response(0, calendarService.getToday(id));
-    }
-
-    @GetMapping("/subscribed/{id}")
-    public Response getSubscribed(@PathVariable long id) throws BaseException {
-        return new Response(0,calendarService.getSubscribed(id));
     }
 }

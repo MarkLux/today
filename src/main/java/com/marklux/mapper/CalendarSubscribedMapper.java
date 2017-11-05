@@ -11,4 +11,5 @@ public interface CalendarSubscribedMapper {
     Collection<CalendarSubscribe> getSubscribed(long userId);
     int createSubscribed(long userId,long calendarId);
     int deleteSubscribed(long userId,long calendarId);
+    CalendarSubscribe getSubscribe(long userId,long calendarId);
 }

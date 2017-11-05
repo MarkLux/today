@@ -43,4 +43,8 @@ public class UserService {
         user.setPassword(Encrypt.encrypt(user.getPassword()));
         userMapper.createUser(user);
     }
+
+    public User getUserById(long userId) {
+        return userMapper.getUserById(userId);
+    }
 }

@@ -46,18 +46,18 @@ public class TokenService {
         return newToken;
     }
 
-    public boolean checkToken(String token) {
-        Token oldToken = tokenMapper.getToken(token);
+    public long checkToken(String token) {
+        Token oldToken = tokenMapper.getTokenByStr(token);
         if (oldToken == null) {
-            return false;
+            return -1;
         }
         if (CHECK_EXPIRE) {
             long currentTime = Utils.createTimestamp();
             if (oldToken.getExpiresAt() < currentTime) {
-                return false;
+                return -1;
             }
         }
-        return true;
+        return oldToken.getUserId();
     }
 
     public boolean deleteToken(String token) {

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.marklux.mapper.TokenMapper">
+    <insert id="createToken" parameterType="com.marklux.domain.Token">
+        INSERT INTO tokens(`user_id`, `client`,`ip`,`token`, `created_at`, `updated_at`, `expires_at`)
+        VALUES (#{userId},#{client},#{ip},#{token},#{createdAt},#{updatedAt},#{expiresAt});
+    </insert>
+    <select id="getToken" resultType="com.marklux.domain.Token">
+        SELECT * FROM tokens WHERE user_id = #{userId} AND client = #{client};
+    </select>
+    <select id="getTokenByStr" resultType="com.marklux.domain.Token">
+        SELECT * FROM tokens WHERE token = #{token};
+    </select>
+    <update id="updateToken" parameterType="com.marklux.domain.Token">
+        UPDATE tokens SET
+        token = #{token},
+        ip = #{ip},
+        created_at = #{createdAt},
+        updated_at = #{updatedAt},
+        expires_at = #{expiresAt}
+        WHERE user_id = #{userId} AND client = #{client};
+    </update>
+    <delete id="deleteToken">
+        DELETE FROM tokens WHERE token = #{token};
+    </delete>
+</mapper>

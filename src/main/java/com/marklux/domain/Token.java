@@ -6,6 +6,7 @@ package com.marklux.domain;
 public class Token implements Model {
     private long userId;
     private int client;
+    private String ip;
     private String token;
     private long createdAt;
     private long updatedAt;
@@ -13,6 +14,14 @@ public class Token implements Model {
 
     public long getUserId() {
         return userId;
+    }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
     }
 
     public void setUserId(long userId) {
