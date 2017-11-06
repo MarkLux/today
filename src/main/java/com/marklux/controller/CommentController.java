@@ -4,6 +4,7 @@ import com.marklux.common.Response;
 import com.marklux.common.Utils;
 import com.marklux.domain.CalendarComment;
 import com.marklux.domain.User;
+import com.marklux.dto.request.CreateCommentRequest;
 import com.marklux.exception.BaseException;
 import com.marklux.exception.general.FormValidatorException;
 import com.marklux.services.CommentService;
@@ -34,7 +35,7 @@ public class CommentController {
 
     @PostMapping("/{calendarId}/comment")
     public Response addComment(@PathVariable long calendarId,
-                               @RequestBody @Valid @NotBlank String comment,
+                               @RequestBody @Valid CreateCommentRequest comment,
                                BindingResult bindingResult,
                                HttpServletRequest request) throws BaseException {
         if (bindingResult.hasErrors()) {
@@ -45,7 +46,7 @@ public class CommentController {
         newComment.setCalendarId(calendarId);
         newComment.setCreatedAt(Utils.createTimestamp());
         newComment.setUserId(user.getId());
-        newComment.setComment(comment);
+        newComment.setComment(comment.getComment());
 
         this.commentService.createComment(newComment);
 
