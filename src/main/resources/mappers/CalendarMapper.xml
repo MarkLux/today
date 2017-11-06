@@ -10,8 +10,10 @@
     <select id="getCalendar" resultType="com.marklux.domain.Calendar">
         SELECT * FROM calendars WHERE id = #{id}
     </select>
-    <select id="getCalendarBy" resultType="com.marklux.domain.Calendar">
-        SELECT * FROM calendars WHERE #{key} = #{value}
+    <select id="getCalendarByCreatorId" resultType="com.marklux.domain.Calendar">
+        SELECT id,title,description,subscribed,picture
+        FROM calendars
+        WHERE creator_id = #{creatorId}
     </select>
     <select id="getMostSubscribed" resultType="com.marklux.domain.Calendar">
         SELECT * FROM calendars ORDER BY subscribed DESC LIMIT 0,#{num};

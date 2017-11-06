@@ -12,7 +12,7 @@ import java.util.Collection;
 
 public interface CalendarMapper {
     Calendar getCalendar(long Id);
-    Collection<Calendar> getCalendarBy(String key,String value);
+    Collection<Calendar> getCalendarByCreatorId(@Param("creatorId")long creatorId);
 
     void createCalendar(Calendar calendar);
 

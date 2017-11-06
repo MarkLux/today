@@ -1,23 +1,32 @@
 package com.marklux.domain;
 
+import org.hibernate.validator.constraints.NotBlank;
+
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
 /**
  * Created by mark on 17/11/3.
  */
 public class CalendarItem implements Model {
-    private long Id;
+    private long id;
     private long calendarId;
+    @NotBlank
     private String title;
+    @NotBlank
     private String item;
     private int type;
+    @NotNull
+    @Min(1)
     private int pickCount;
     private String format;
 
     public long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(long id) {
-        Id = id;
+        this.id = id;
     }
 
     public long getCalendarId() {

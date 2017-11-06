@@ -7,7 +7,7 @@
         INSERT INTO calendar_items(calendar_id,title,item,type,pick_count,format)
         VALUES (#{calendarId},#{title},#{item},#{type},#{pickCount},#{format})
     </insert>
-    <insert id="createItems" useGeneratedKeys="true" keyProperty="id" parameterType="com.marklux.domain.CalendarItem">
+    <insert id="createItems" parameterType="java.util.List">
         INSERT INTO calendar_items(calendar_id,title,item,type,pick_count,format)
         VALUES
         <foreach collection="list" item="item" index="index" separator=",">

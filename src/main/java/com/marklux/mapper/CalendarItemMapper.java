@@ -12,7 +12,7 @@ import java.util.List;
 public interface CalendarItemMapper  {
     Collection<CalendarItem> getItems(long calendarId);
     int createItem(CalendarItem item);
-    int createItmes(List<CalendarItem> list);
+    int createItems(List<CalendarItem> list);
     int updateItem(CalendarItem item);
     int deleteItem(CalendarItem item);
 }

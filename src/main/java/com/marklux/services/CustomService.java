@@ -9,6 +9,7 @@ import com.marklux.mapper.CalendarMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -46,6 +47,14 @@ public class CustomService {
      */
 
     public int createCalendarItems(List<CalendarItem> list) {
-        return calendarItemMapper.createItmes(list);
+        return calendarItemMapper.createItems(list);
+    }
+
+    /**
+     * 获取自己创建的黄历
+     */
+
+    public List<Calendar> getCalendarsByCreatorId(Long userId) {
+        return new ArrayList<>(calendarMapper.getCalendarByCreatorId(userId));
     }
 }
