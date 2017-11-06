@@ -3,7 +3,7 @@ package com.marklux.domain;
 /**
  * Created by mark on 17/11/3.
  */
-public class CalendarSubscribe {
+public class CalendarSubscribe implements Model {
     private long calendarId;
     private long userId;
 

@@ -3,7 +3,7 @@ package com.marklux.domain;
 /**
  * Created by mark on 17/10/31.
  */
-public class Calendar {
+public class Calendar implements Model {
     private long id;
     private String title;
     private String description;

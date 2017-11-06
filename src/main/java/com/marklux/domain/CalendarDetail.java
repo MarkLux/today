@@ -9,7 +9,7 @@ public class CalendarDetail implements Model {
     private String description;
     private long creatorId;
     private String creatorName;
-    private String creatorAvator;
+    private String creatorAvatar;
     private int subscribed;
     private String picture;
     private long createdAt;
@@ -27,12 +27,12 @@ public class CalendarDetail implements Model {
         this.creatorName = creatorName;
     }
 
-    public String getCreatorAvator() {
-        return creatorAvator;
+    public String getCreatorAvatar() {
+        return creatorAvatar;
     }
 
-    public void setCreatorAvator(String creatorAvator) {
-        this.creatorAvator = creatorAvator;
+    public void setCreatorAvatar(String creatorAvatar) {
+        this.creatorAvatar = creatorAvatar;
     }
 
     public long getId() {

@@ -25,7 +25,7 @@
         ORDER BY created_at DESC LIMIT #{page},#{size};
     </select>
     <select id="getCalendarDetail" resultType="com.marklux.domain.CalendarDetail">
-        SELECT calendars.*,users.name as creator_name,users.avator as creator_avator
+        SELECT calendars.*,users.name as creator_name,users.avatar as creator_avatar
         FROM calendars
         LEFT JOIN users
         ON calendars.creator_id = users.id

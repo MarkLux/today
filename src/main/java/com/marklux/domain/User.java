@@ -7,7 +7,7 @@ public class User implements Model {
 
     private Long id;
     private String name;
-    private String avator;
+    private String avatar;
     private String password;
     private String signature;
     private int sex;
@@ -15,12 +15,12 @@ public class User implements Model {
     private Long createdAt;
     private Long updatedAt;
 
-    public String getAvator() {
-        return avator;
+    public String getAvatar() {
+        return avatar;
     }
 
-    public void setAvator(String avator) {
-        this.avator = avator;
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public Long getId() {

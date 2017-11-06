@@ -8,7 +8,7 @@ public class CalendarComment implements Model {
     private long calendarId;
     private long userId;
     private String userName;
-    private String userAvator;
+    private String userAvatar;
     private String comment;
     private long createdAt;
 
@@ -28,12 +28,12 @@ public class CalendarComment implements Model {
         this.userName = userName;
     }
 
-    public String getUserAvator() {
-        return userAvator;
+    public String getUserAvatar() {
+        return userAvatar;
     }
 
-    public void setUserAvator(String userAvator) {
-        this.userAvator = userAvator;
+    public void setUserAvatar(String userAvator) {
+        this.userAvatar = userAvator;
     }
 
     public long getCalendarId() {

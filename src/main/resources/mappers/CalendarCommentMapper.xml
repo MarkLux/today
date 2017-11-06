@@ -8,7 +8,7 @@
         VALUES (#{calendarId},#{userId},#{comment},#{createdAt});
     </insert>
     <select id="getCommentsByCalendarId" resultType="com.marklux.domain.CalendarComment">
-        SELECT calendar_comments.*,users.name as user_name,users.avator as user_avator
+        SELECT calendar_comments.*,users.name as user_name,users.avatar as user_avatar
         FROM calendar_comments
         LEFT JOIN users
         ON calendar_comments.user_id = users.id
