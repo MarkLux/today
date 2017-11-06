@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.marklux.mapper.CalendarCommentMapper">
+    <insert id="createComment" parameterType="com.marklux.domain.CalendarComment">
+        INSERT INTO calendar_comments(`calendar_id`, `user_id`,`comment`,`created_at`)
+        VALUES (#{calendarId},#{userId},#{comment},#{createdAt});
+    </insert>
+    <select id="getCommentsByCalendarId" resultType="com.marklux.domain.CalendarComment">
+        SELECT calendar_comments.*,users.name as user_name,users.avator as user_avator
+        FROM calendar_comments
+        LEFT JOIN users
+        ON calendar_comments.user_id = users.id
+        WHERE calendar_comments.calendar_id = #{calendarId}
+        ORDER BY created_at DESC
+        LIMIT #{page},#{size};
+    </select>
+    <delete id="deleteComment">
+        DELETE FROM calendar_comments WHERE id = #{id};
+    </delete>
+</mapper>

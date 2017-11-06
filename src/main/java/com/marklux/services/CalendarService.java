@@ -1,17 +1,11 @@
 package com.marklux.services;
 
 import com.marklux.common.Utils;
-import com.marklux.domain.Calendar;
-import com.marklux.domain.CalendarActivity;
-import com.marklux.domain.CalendarItem;
-import com.marklux.domain.CalendarSubscribe;
+import com.marklux.domain.*;
 import com.marklux.dto.response.TodayResponse;
 import com.marklux.exception.BaseException;
 import com.marklux.exception.general.ResourceNotExistException;
-import com.marklux.mapper.CalendarActivityMapper;
-import com.marklux.mapper.CalendarItemMapper;
-import com.marklux.mapper.CalendarMapper;
-import com.marklux.mapper.CalendarSubscribedMapper;
+import com.marklux.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,21 +26,14 @@ public class CalendarService {
     private CalendarItemMapper calendarItemMapper;
     @Autowired
     private CalendarSubscribedMapper calendarSubscribedMapper;
+    @Autowired
+    private CalendarCommentMapper calendarCommentMapper;
 
     private int iday;// seed of today
 
     public CalendarService() {
         java.util.Calendar now = java.util.Calendar.getInstance();
         iday = now.get(java.util.Calendar.YEAR) * 10000 + (now.get(java.util.Calendar.MONTH) + 1) * 100 + now.get(java.util.Calendar.DAY_OF_MONTH);
-    }
-
-    /**
-     * 创建黄历
-     */
-
-    public long createCalendar(Calendar calendar) {
-        calendarMapper.createCalendar(calendar);
-        return calendar.getId();
     }
 
     public Calendar getCalendar(long Id) {
@@ -125,6 +112,14 @@ public class CalendarService {
         }
 
         return response;
+    }
+
+    /**
+     * 获取黄历详情页面
+     */
+
+    public CalendarDetail getCalendarDetail(long calendarId) {
+        return calendarMapper.getCalendarDetail(calendarId);
     }
 
     /**

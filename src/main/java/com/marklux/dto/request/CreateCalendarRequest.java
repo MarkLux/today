@@ -11,6 +11,7 @@ public class CreateCalendarRequest {
     @NotBlank
     private String title;
     private String description;
+    private String picture;
     @NotNull
     private int isPublic;
     private String password;
@@ -18,6 +19,14 @@ public class CreateCalendarRequest {
     private int goodPick;
     @NotNull
     private int badPick;
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
 
     public String getTitle() {
         return title;

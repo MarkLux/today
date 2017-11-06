@@ -24,6 +24,19 @@
         WHERE title LIKE #{key}
         ORDER BY created_at DESC LIMIT #{page},#{size};
     </select>
+    <select id="getCalendarDetail" resultType="com.marklux.domain.CalendarDetail">
+        SELECT calendars.*,users.name as creator_name,users.avator as creator_avator
+        FROM calendars
+        LEFT JOIN users
+        ON calendars.creator_id = users.id
+        WHERE calendars.id = #{id};
+    </select>
+    <select id="checkOwnerShip" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM calendars
+        WHERE id = #{calendarId}
+        AND creator_id = #{userId}
+    </select>
     <update id="updateCalendar" parameterType="com.marklux.domain.Calendar">
         UPDATE calendars SET
           title = #{title}

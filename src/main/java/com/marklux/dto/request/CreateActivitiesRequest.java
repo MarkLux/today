@@ -1,34 +1,20 @@
-package com.marklux.domain;
+package com.marklux.dto.request;
 
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
- * Created by mark on 17/11/2.
+ * Created by mark on 17/11/6.
  */
-public class CalendarActivity implements Model {
-    private long id;
-    private long calendarId;
+
+public class CreateActivitiesRequest {
     @NotBlank
     private String name;
+
     private String good;
+
     private String bad;
+
     private int weekendOnly;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public long getCalendarId() {
-        return calendarId;
-    }
-
-    public void setCalendarId(long calendarId) {
-        this.calendarId = calendarId;
-    }
 
     public String getName() {
         return name;

@@ -68,8 +68,6 @@ public class TokenInterceptor implements HandlerInterceptor {
 
         User user = userService.getUserById(userId);
 
-        System.out.println("getUser!" + user.getName());
-
         httpServletRequest.setAttribute("user",user);
 
         return true;

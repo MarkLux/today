@@ -7,6 +7,13 @@
         INSERT INTO calendar_items(calendar_id,title,item,type,pick_count,format)
         VALUES (#{calendarId},#{title},#{item},#{type},#{pickCount},#{format})
     </insert>
+    <insert id="createItems" useGeneratedKeys="true" keyProperty="id" parameterType="com.marklux.domain.CalendarItem">
+        INSERT INTO calendar_items(calendar_id,title,item,type,pick_count,format)
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.calendarId},#{item.title},#{item.item},#{item.type},#{item.pickCount},#{item.format})
+        </foreach>
+    </insert>
     <select id="getItems" resultType="com.marklux.domain.CalendarItem">
         SELECT * FROM calendar_items WHERE calendar_id = #{calendarId}
     </select>
