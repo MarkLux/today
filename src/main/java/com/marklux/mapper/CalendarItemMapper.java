@@ -1,6 +1,5 @@
 package com.marklux.mapper;
 
-import com.marklux.domain.Calendar;
 import com.marklux.domain.CalendarItem;
 
 import java.util.Collection;

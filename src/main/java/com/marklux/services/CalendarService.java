@@ -29,13 +29,6 @@ public class CalendarService {
     @Autowired
     private CalendarCommentMapper calendarCommentMapper;
 
-    private int iday;// seed of today
-
-    public CalendarService() {
-        java.util.Calendar now = java.util.Calendar.getInstance();
-        iday = now.get(java.util.Calendar.YEAR) * 10000 + (now.get(java.util.Calendar.MONTH) + 1) * 100 + now.get(java.util.Calendar.DAY_OF_MONTH);
-    }
-
     public Calendar getCalendar(long Id) {
         return calendarMapper.getCalendar(Id);
     }
@@ -127,10 +120,12 @@ public class CalendarService {
      */
 
     private List<CalendarActivity> pickRandomActivities(Collection<CalendarActivity> activities, int num) {
+        java.util.Calendar now = java.util.Calendar.getInstance();
+        int iday = now.get(java.util.Calendar.YEAR) * 10000 + (now.get(java.util.Calendar.MONTH) + 1) * 100 + now.get(java.util.Calendar.DAY_OF_MONTH);
         List<CalendarActivity> list = new ArrayList<>(activities);
         List<CalendarActivity> copy = new ArrayList<>(list);
         for (int i=0;i<list.size() - num;i++) {
-            int index = Utils.getRandom(this.iday,i) % copy.size();
+            int index = Utils.getRandom(iday,i) % copy.size();
             copy.remove(index);
         }
         return copy;
@@ -146,9 +141,11 @@ public class CalendarService {
         for (int i=0;i<splits.length;i++) {
             list.add(splits[i]);
         }
+        java.util.Calendar now = java.util.Calendar.getInstance();
+        int iday = now.get(java.util.Calendar.YEAR) * 10000 + (now.get(java.util.Calendar.MONTH) + 1) * 100 + now.get(java.util.Calendar.DAY_OF_MONTH);
         List<String> copy = new ArrayList<>(list);
         for (int i=0;i<list.size() - num;i++) {
-            int index = Utils.getRandom(this.iday,i) % copy.size();
+            int index = Utils.getRandom(iday,i) % copy.size();
             copy.remove(index);
         }
         return copy;

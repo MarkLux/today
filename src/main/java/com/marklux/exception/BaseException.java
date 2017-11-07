@@ -5,7 +5,7 @@ package com.marklux.exception;
  */
 public class BaseException extends Exception {
     private int code;
-    private String Message;
+    private String message;
 
     public int getCode() {
         return code;
@@ -16,10 +16,10 @@ public class BaseException extends Exception {
     }
 
     public String getMessage() {
-        return Message;
+        return message;
     }
 
     public void setMessage(String message) {
-        Message = message;
+        this.message = message;
     }
 }
