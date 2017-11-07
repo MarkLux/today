@@ -1,6 +1,7 @@
 package com.marklux.mapper;
 
 import com.marklux.domain.CalendarActivity;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.Collection;
 import java.util.List;
@@ -13,6 +14,7 @@ public interface CalendarActivityMapper {
     int createActivities(List<CalendarActivity> list);
     void createActivity(CalendarActivity calendarActivity);
     int updateActitvity(CalendarActivity calendarActivity);
-    int delteActivity(long activityId);
+    int deleteActivity(long activityId);
+    int deleteActivitiesByCalendarId(@Param("calendarId") long calendarId);
     CalendarActivity getActivity(long activityId);
 }

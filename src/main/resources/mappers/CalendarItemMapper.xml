@@ -30,4 +30,7 @@
     <delete id="deleteItem">
         DELETE FROM calendar_items WHERE id = #{id}
     </delete>
+    <delete id="deleteItemsByCalendarId">
+        DELETE FROM calendar_items WHERE calendar_id = #{calenarId}
+    </delete>
 </mapper>

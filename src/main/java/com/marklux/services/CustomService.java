@@ -8,6 +8,7 @@ import com.marklux.mapper.CalendarItemMapper;
 import com.marklux.mapper.CalendarMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,18 +36,20 @@ public class CustomService {
     }
 
     /**
-     * 批量创建黄历项目
+     * 更新/创建/修改黄历项目
      */
-
-    public int createCalendarActivities(List<CalendarActivity> list) {
+    @Transactional
+    public int updateCalendarActivities(long calendarId,List<CalendarActivity> list) {
+        calendarActivityMapper.deleteActivitiesByCalendarId(calendarId);
         return calendarActivityMapper.createActivities(list);
     }
 
     /**
-     * 批量创建黄历推荐
+     * 更新/创建/修改黄历推荐
      */
-
-    public int createCalendarItems(List<CalendarItem> list) {
+    @Transactional
+    public int updateCalendarItems(long calendarId,List<CalendarItem> list) {
+        calendarItemMapper.deleteItemsByCalendarId(calendarId);
         return calendarItemMapper.createItems(list);
     }
 

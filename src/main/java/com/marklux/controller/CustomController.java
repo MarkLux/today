@@ -8,8 +8,11 @@ import com.marklux.domain.CalendarItem;
 import com.marklux.domain.User;
 import com.marklux.dto.request.CreateCalendarRequest;
 import com.marklux.exception.BaseException;
+import com.marklux.exception.UnkownException;
 import com.marklux.exception.general.FormValidatorException;
 import com.marklux.exception.general.PermissionDeniedException;
+import com.marklux.exception.general.ResourceNotExistException;
+import com.marklux.services.CalendarService;
 import com.marklux.services.CustomService;
 import com.marklux.services.PermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +35,13 @@ public class CustomController {
     CustomService customService;
     @Autowired
     PermissionService permissionService;
+    @Autowired
+    CalendarService calendarService;
 
     @PostMapping("/new")
-    public Response createNewCalendar(@RequestBody @Valid CreateCalendarRequest request, BindingResult bindingResult,HttpServletRequest httpServletRequest) throws BaseException {
+    public Response createNewCalendar(@RequestBody @Valid CreateCalendarRequest request,
+                                      BindingResult bindingResult,
+                                      HttpServletRequest httpServletRequest) throws BaseException {
         if (bindingResult.hasErrors()) {
             throw new FormValidatorException(bindingResult);
         }
@@ -59,6 +66,69 @@ public class CustomController {
         return new Response(0, newId);
     }
 
+    @PutMapping("/{calendarId}")
+    public Response updateCalendar(@RequestBody @Valid CreateCalendarRequest request,@PathVariable long calendarId,
+                                   BindingResult bindingResult,
+                                   HttpServletRequest httpServletRequest) throws BaseException {
+        if (bindingResult.hasErrors()) {
+            throw new FormValidatorException(bindingResult);
+        }
+
+        User user = (User)httpServletRequest.getAttribute("user");
+
+        Long currentTime = Utils.createTimestamp();
+        Calendar calendar = calendarService.getCalendar(calendarId);
+
+        if (calendar == null) {
+            throw new ResourceNotExistException("日历");
+        }
+
+        if (!permissionService.checkOwnership(user.getId(),calendarId)) {
+            throw new PermissionDeniedException();
+        }
+
+        calendar.setTitle(request.getTitle());
+        calendar.setPicture(request.getPicture());
+        calendar.setDescription(request.getDescription());
+        calendar.setIsPublic(request.getIsPublic());
+        calendar.setGoodPick(request.getGoodPick());
+        calendar.setBadPick(request.getBadPick());
+        calendar.setUpdatedAt(currentTime);
+
+        if (!calendarService.updateCalendar(calendar)) {
+            throw new UnkownException("无法更新日历基本信息");
+        }
+
+        return new Response(0,null);
+    }
+
+    @DeleteMapping("/{calendarId}")
+    public Response deleteCalendar(@PathVariable long calendarId,
+                                   BindingResult bindingResult,
+                                   HttpServletRequest httpServletRequest) throws BaseException {
+        if (bindingResult.hasErrors()) {
+            throw new FormValidatorException(bindingResult);
+        }
+
+        User user = (User)httpServletRequest.getAttribute("user");
+
+        Calendar calendar = calendarService.getCalendar(calendarId);
+
+        if (calendar == null) {
+            throw new ResourceNotExistException("日历");
+        }
+
+        if (!permissionService.checkOwnership(user.getId(),calendarId)) {
+            throw new PermissionDeniedException();
+        }
+
+        if (!this.calendarService.deleteCalendar(calendarId)) {
+            throw new UnkownException("无法删除黄历");
+        }
+
+        return new Response(0,null);
+    }
+
     @PostMapping("/{calendarId}/activities")
     public Response createActivities(@RequestBody @Valid List<CalendarActivity> list,
                                      @PathVariable long calendarId, BindingResult bindingResult,
@@ -79,7 +149,7 @@ public class CustomController {
             act.setCalendarId(calendarId);
         }
 
-        int rows = customService.createCalendarActivities(list);
+        int rows = customService.updateCalendarActivities(calendarId,list);
 
         return new Response(0,rows);
     }
@@ -101,7 +171,7 @@ public class CustomController {
             item.setCalendarId(calendarId);
         }
 
-        int rows = customService.createCalendarItems(list);
+        int rows = customService.updateCalendarItems(calendarId,list);
 
         return new Response(0,rows);
     }
