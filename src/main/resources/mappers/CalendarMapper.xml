@@ -41,16 +41,16 @@
     </select>
     <update id="updateCalendar" parameterType="com.marklux.domain.Calendar">
         UPDATE calendars SET
-          title = #{title}
-          description = #{description}
-          picture = #{picture}
-          creator_id = #{creatorId}
-          subscribed = #{subscribed}
-          created_at = #{createdAt}
-          updated_at = #{updatedAt}
-          is_public = #{isPublic}
-          password = #{password}
-          good_pick = #{goodPick}
+          title = #{title},
+          description = #{description},
+          picture = #{picture},
+          creator_id = #{creatorId},
+          subscribed = #{subscribed},
+          created_at = #{createdAt},
+          updated_at = #{updatedAt},
+          is_public = #{isPublic},
+          password = #{password},
+          good_pick = #{goodPick},
           bad_pick = #{badPick}
         WHERE id = #{id}
     </update>

@@ -104,11 +104,7 @@ public class CustomController {
 
     @DeleteMapping("/{calendarId}")
     public Response deleteCalendar(@PathVariable long calendarId,
-                                   BindingResult bindingResult,
                                    HttpServletRequest httpServletRequest) throws BaseException {
-        if (bindingResult.hasErrors()) {
-            throw new FormValidatorException(bindingResult);
-        }
 
         User user = (User)httpServletRequest.getAttribute("user");
 
