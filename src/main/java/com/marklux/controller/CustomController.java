@@ -14,6 +14,7 @@ import com.marklux.exception.general.PermissionDeniedException;
 import com.marklux.exception.general.ResourceNotExistException;
 import com.marklux.services.CalendarService;
 import com.marklux.services.CustomService;
+import com.marklux.services.FileService;
 import com.marklux.services.PermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
@@ -37,6 +38,8 @@ public class CustomController {
     PermissionService permissionService;
     @Autowired
     CalendarService calendarService;
+    @Autowired
+    FileService fileService;
 
     @PostMapping("/new")
     public Response createNewCalendar(@RequestBody @Valid CreateCalendarRequest request,
@@ -177,5 +180,11 @@ public class CustomController {
         User user = (User)request.getAttribute("user");
         List<Calendar> calendarList = customService.getCalendarsByCreatorId(user.getId());
         return new Response(0,calendarList);
+    }
+
+    @GetMapping("/upload/token")
+    public Response getUploadToken() {
+        String token = fileService.getUploadToken();
+        return new Response(0,token);
     }
 }

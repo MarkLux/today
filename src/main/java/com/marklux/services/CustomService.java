@@ -7,6 +7,7 @@ import com.marklux.mapper.CalendarActivityMapper;
 import com.marklux.mapper.CalendarItemMapper;
 import com.marklux.mapper.CalendarMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,13 +26,26 @@ public class CustomService {
     private CalendarActivityMapper calendarActivityMapper;
     @Autowired
     private CalendarItemMapper calendarItemMapper;
+    @Value("${qiniu.domain}")
+    private String domain;
 
     /**
      * 创建黄历（基础信息）
      */
 
     public long createCalendar(Calendar calendar) {
+        calendar.setPicture(domain+calendar.getPicture());
         calendarMapper.createCalendar(calendar);
+        return calendar.getId();
+    }
+
+    /**
+     * 更新黄历（基础信息）
+     */
+
+    public long updateCalendar(Calendar calendar) {
+        calendar.setPicture(domain+calendar.getPicture());
+        calendarMapper.updateCalendar(calendar);
         return calendar.getId();
     }
 

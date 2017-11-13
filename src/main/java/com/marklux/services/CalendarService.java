@@ -74,7 +74,7 @@ public class CalendarService {
         // 构建随机池
         Calendar calendar = calendarMapper.getCalendar(calendarId);
         if (calendar == null) {
-            throw new ResourceNotExistException("日历");
+            return null;
         }
 
         Collection<CalendarActivity> activities = calendarActivityMapper.getActivitiesByCalendarId(calendarId);

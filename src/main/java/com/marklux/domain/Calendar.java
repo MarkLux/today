@@ -1,5 +1,7 @@
 package com.marklux.domain;
 
+import org.springframework.beans.factory.annotation.Value;
+
 /**
  * Created by mark on 17/10/31.
  */
