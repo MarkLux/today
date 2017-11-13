@@ -74,7 +74,10 @@ public class CalendarService {
         // 构建随机池
         Calendar calendar = calendarMapper.getCalendar(calendarId);
         if (calendar == null) {
-            return null;
+            TodayResponse todayResponse = new TodayResponse();
+            todayResponse.setCalendarName("该黄历已被作者删除，请取消订阅~");
+            todayResponse.setCalendarId(-1);
+            return todayResponse;
         }
 
         Collection<CalendarActivity> activities = calendarActivityMapper.getActivitiesByCalendarId(calendarId);
