@@ -7,15 +7,32 @@
         INSERT INTO calendar_subscribe
         VALUES (#{calendarId},#{userId})
     </insert>
+    <insert id="updateSubscribes" parameterType="com.marklux.domain.CalendarSubscribe">
+        INSERT INTO calendar_subscribe(`calendar_id`,`user_id`,`order`)
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.calendarId},#{item.userId},#{item.order})
+        </foreach>
+    </insert>
     <select id="getSubscribed" resultType="com.marklux.domain.CalendarSubscribe">
-        SELECT * FROM calendar_subscribe WHERE user_id = #{userId};
+        SELECT * FROM calendar_subscribe
+        WHERE user_id = #{userId}
+        ORDER BY `order`;
     </select>
     <select id="getSubscribe" resultType="com.marklux.domain.CalendarSubscribe">
         SELECT * FROM calendar_subscribe WHERE user_id = #{userId} AND calendar_id = #{calendarId};
+    </select>
+    <select id="getMaxOrder" resultType="java.lang.Integer">
+        SELECT max(order) FROM calendar_subscribe
+        WHERE user_id = #{userId};
     </select>
     <delete id="deleteSubscribed">
         DELETE FROM calendar_subscribe
         WHERE calendar_id = #{calendarId}
         AND user_id = #{userId}
+    </delete>
+    <delete id="deleteSubscribes">
+        DELETE FROM calendar_subscribe
+        WHERE user_id = #{userId};
     </delete>
 </mapper>

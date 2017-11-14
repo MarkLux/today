@@ -1,17 +1,17 @@
 package com.marklux.controller;
 
 import com.marklux.common.Response;
+import com.marklux.domain.CalendarSubscribe;
 import com.marklux.domain.User;
 import com.marklux.exception.BaseException;
 import com.marklux.exception.UnkownException;
 import com.marklux.services.SubscribeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+import java.util.List;
 
 /**
  * Created by mark on 17/11/5.
@@ -42,6 +42,15 @@ public class SubscribeController {
         User user = (User)request.getAttribute("user");
         if (!subscribeService.deleteSubscribe(user.getId(),calendarId)) {
             throw new UnkownException("无法取消订阅");
+        }
+        return new Response(0,null);
+    }
+
+    @PutMapping("/subscribe")
+    public Response updateSubscribe(HttpServletRequest request, @Valid @RequestBody List<CalendarSubscribe> subscribes) throws BaseException {
+        User user = (User)request.getAttribute("user");
+        if (!subscribeService.updateSubscribes(user.getId(),subscribes)) {
+            throw new UnkownException("更新订阅失败");
         }
         return new Response(0,null);
     }

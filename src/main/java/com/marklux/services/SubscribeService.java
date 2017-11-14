@@ -53,7 +53,8 @@ public class SubscribeService {
         }
         calendar.setSubscribed(calendar.getSubscribed()+1);
         calendarService.updateCalendar(calendar);
-        return calendarSubscribedMapper.createSubscribed(userId,calendarId) == 1;
+        int order = calendarSubscribedMapper.getMaxOrder(userId) + 1;
+        return calendarSubscribedMapper.createSubscribed(userId,calendarId,order) == 1;
     }
 
     /**
@@ -74,5 +75,14 @@ public class SubscribeService {
         return calendarSubscribedMapper.deleteSubscribed(userId,calendarId) == 1;
     }
 
+    @Transactional
+    public boolean updateSubscribes(long userId,List<CalendarSubscribe> subscribes) {
+        // 先删除原来的所有订阅再重新插入
+        for (CalendarSubscribe cs:subscribes) {
+            cs.setUserId(userId);
+        }
+        calendarSubscribedMapper.deleteSubscribes(userId);
+        return calendarSubscribedMapper.updateSubscribes(subscribes) == subscribes.size();
+    }
 
 }
