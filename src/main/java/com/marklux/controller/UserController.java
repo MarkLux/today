@@ -11,10 +11,7 @@ import com.marklux.exception.general.FormValidatorException;
 import com.marklux.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -61,5 +58,17 @@ public class UserController {
         UserLoginResponse response = userService.login(loginRequest.getName(),loginRequest.getPassword(),loginRequest.getClient(),request.getRemoteHost());
 
         return new Response(0,response);
+    }
+
+    @GetMapping("/{userId}/info")
+    public Response getUserInfo(@PathVariable long userId) {
+        User user = userService.getUserById(userId);
+        return new Response(0,user);
+    }
+
+    @GetMapping("/me")
+    public Response getMine(HttpServletRequest request) {
+        User user = (User)request.getAttribute("user");
+        return new Response(0,user);
     }
 }

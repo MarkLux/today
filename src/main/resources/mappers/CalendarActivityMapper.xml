@@ -4,7 +4,7 @@
 
 <mapper namespace="com.marklux.mapper.CalendarActivityMapper">
     <insert id="createActivity" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.List">
-        INSERT INTO calendar_activites(`calendar_id`, `name`,`good`,`bad`, `weekend_only`)
+        INSERT INTO calendar_activities(`calendar_id`, `name`,`good`,`bad`, `weekend_only`)
         VALUES (#{calendarId},#{name},#{good},#{bad},#{weekendOnly});
     </insert>
     <insert id="createActivities" parameterType="com.marklux.domain.CalendarActivity">
