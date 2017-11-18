@@ -5,7 +5,7 @@
 <mapper namespace="com.marklux.mapper.CalendarSubscribedMapper">
     <insert id="createSubscribed">
         INSERT INTO calendar_subscribe
-        VALUES (#{calendarId},#{userId})
+        VALUES (#{calendarId},#{userId},#{order})
     </insert>
     <insert id="updateSubscribes" parameterType="com.marklux.domain.CalendarSubscribe">
         INSERT INTO calendar_subscribe(`calendar_id`,`user_id`,`order`)
@@ -23,7 +23,7 @@
         SELECT * FROM calendar_subscribe WHERE user_id = #{userId} AND calendar_id = #{calendarId};
     </select>
     <select id="getMaxOrder" resultType="java.lang.Integer">
-        SELECT max(order) FROM calendar_subscribe
+        SELECT max(`order`) FROM calendar_subscribe
         WHERE user_id = #{userId};
     </select>
     <delete id="deleteSubscribed">

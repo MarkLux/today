@@ -48,7 +48,7 @@ public class SubscribeService {
             throw new ResourceNotExistException("日历");
         }
         CalendarSubscribe previous = calendarSubscribedMapper.getSubscribe(userId, calendarId);
-        if (previous == null) {
+        if (previous != null) {
             throw new ResourceExistedException("订阅");
         }
         calendar.setSubscribed(calendar.getSubscribed()+1);
@@ -68,7 +68,7 @@ public class SubscribeService {
         }
         CalendarSubscribe previous = calendarSubscribedMapper.getSubscribe(userId, calendarId);
         if (previous == null) {
-            throw new ResourceExistedException("订阅");
+            throw new ResourceNotExistException("订阅");
         }
         calendar.setSubscribed(calendar.getSubscribed()-1);
         calendarService.updateCalendar(calendar);

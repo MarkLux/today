@@ -18,11 +18,11 @@ public class Calendar implements Model {
     private int badPick;
     private boolean isSubscribed;
 
-    public boolean isSubscribed() {
+    public boolean getIsSubscribed() {
         return isSubscribed;
     }
 
-    public void setSubscribed(boolean subscribed) {
+    public void setIsSubscribed(boolean subscribed) {
         isSubscribed = subscribed;
     }
 
