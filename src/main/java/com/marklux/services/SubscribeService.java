@@ -53,7 +53,12 @@ public class SubscribeService {
         }
         calendar.setSubscribed(calendar.getSubscribed()+1);
         calendarService.updateCalendar(calendar);
-        int order = calendarSubscribedMapper.getMaxOrder(userId) + 1;
+        Integer order = calendarSubscribedMapper.getMaxOrder(userId);
+        if (order == null) {
+            order = 1;
+        }else {
+            order = order +1;
+        }
         return calendarSubscribedMapper.createSubscribed(userId,calendarId,order) == 1;
     }
 

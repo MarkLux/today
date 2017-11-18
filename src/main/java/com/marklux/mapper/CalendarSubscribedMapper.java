@@ -15,6 +15,6 @@ public interface CalendarSubscribedMapper {
     int updateSubscribes(List<CalendarSubscribe> subscribes);
     int deleteSubscribed(@Param("userId") long userId,@Param("calendarId") long calendarId);
     CalendarSubscribe getSubscribe(@Param("userId") long userId,@Param("calendarId") long calendarId);
-    int getMaxOrder(@Param("userId") long userId);
+    Integer getMaxOrder(@Param("userId") long userId);
     int deleteSubscribes(@Param("userId") long userId);
 }
