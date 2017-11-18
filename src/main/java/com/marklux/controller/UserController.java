@@ -43,10 +43,7 @@ public class UserController {
 
         userService.register(user);
 
-        Map<String,Long> resultMap = new HashMap<>();
-        resultMap.put("userId",user.getId());
-
-        return new Response(0,resultMap);
+        return new Response(0,user.getId());
     }
 
     @PostMapping("/login")

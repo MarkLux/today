@@ -19,7 +19,14 @@
         SELECT * FROM calendars ORDER BY subscribed DESC LIMIT 0,#{num};
     </select>
     <select id="getCalendars" resultType="com.marklux.domain.Calendar">
-        SELECT id,title,picture,subscribed,is_public,creator_id FROM calendars ORDER BY created_at DESC LIMIT #{page},#{size};
+        SELECT calendars.id,calendars.title,calendars.picture,
+        calendars.subscribed,calendars.is_public,calendars.creator_id,
+        subscribes.calendar_id > 0 as is_subscribed
+        FROM calendars
+        LEFT JOIN (SELECT calendar_id FROM calendar_subscribe WHERE user_id = #{userId}) subscribes
+        ON calendars.id = subscribes.calendar_id
+        ORDER BY calendars.created_at DESC
+        LIMIT #{page},#{size};
     </select>
     <select id="getCalendarLike" resultType="com.marklux.domain.Calendar">
         SELECT id,title,picture,subscribed,is_public,creator_id FROM calendars

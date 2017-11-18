@@ -53,8 +53,8 @@ public class CalendarService {
      * 分页获取全部的黄历，创建时间倒序
      */
 
-    public List<Calendar> getCalendars(int page,int size) {
-        return new ArrayList<>(calendarMapper.getCalendars(size*(page-1),size));
+    public List<Calendar> getCalendars(int page,int size,long userId) {
+        return new ArrayList<>(calendarMapper.getCalendars(size*(page-1),size,userId));
     }
 
     /**

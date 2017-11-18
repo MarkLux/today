@@ -1,7 +1,5 @@
 package com.marklux.domain;
 
-import org.springframework.beans.factory.annotation.Value;
-
 /**
  * Created by mark on 17/10/31.
  */
@@ -18,6 +16,15 @@ public class Calendar implements Model {
     private String password;
     private int goodPick;
     private int badPick;
+    private boolean isSubscribed;
+
+    public boolean isSubscribed() {
+        return isSubscribed;
+    }
+
+    public void setSubscribed(boolean subscribed) {
+        isSubscribed = subscribed;
+    }
 
     public long getId() {
         return id;

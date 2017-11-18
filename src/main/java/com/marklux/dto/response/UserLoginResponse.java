@@ -16,6 +16,7 @@ public class UserLoginResponse {
         u.setUpdatedAt(user.getUpdatedAt());
         u.setSex(user.getSex());
         u.setSignature(user.getSignature());
+        u.setAvatar(user.getAvatar());
         this.user = u;
     }
 
@@ -38,9 +39,18 @@ public class UserLoginResponse {
     class User {
         private String name;
         private String signature;
+        private String avatar;
         private int sex;
         private long createdAt;
         private long updatedAt;
+
+        public String getAvatar() {
+            return avatar;
+        }
+
+        public void setAvatar(String avatar) {
+            this.avatar = avatar;
+        }
 
         public String getName() {
             return name;

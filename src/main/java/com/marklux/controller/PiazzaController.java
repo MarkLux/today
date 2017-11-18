@@ -1,9 +1,12 @@
 package com.marklux.controller;
 
 import com.marklux.common.Response;
+import com.marklux.domain.User;
 import com.marklux.services.CalendarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by mark on 17/11/5.
@@ -21,8 +24,14 @@ public class PiazzaController {
 
     @GetMapping("/all")
     public Response getAll(@RequestParam(required = false,defaultValue = "1") int page,
-                           @RequestParam(required = false,defaultValue = "15") int size) {
-        return new Response(0,calendarService.getCalendars(page,size));
+                           @RequestParam(required = false,defaultValue = "15") int size,
+                           HttpServletRequest request) {
+        User user = (User)request.getAttribute("user");
+        long userId = -1;
+        if (user != null) {
+            userId = user.getId();
+        }
+        return new Response(0,calendarService.getCalendars(page,size,userId));
     }
 
     @GetMapping("/search")

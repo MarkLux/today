@@ -22,7 +22,7 @@ public interface CalendarMapper {
 
     Collection<Calendar> getMostSubscribed(@Param("num") int num);
 
-    Collection<Calendar> getCalendars(@Param("page") int page,@Param("size") int size);
+    Collection<Calendar> getCalendars(@Param("page") int page,@Param("size") int size,@Param("userId") long userId);
 
     Collection<Calendar> getCalendarLike(@Param("key") String key,@Param("page") int page,@Param("size") int size);
 

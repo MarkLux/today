@@ -32,6 +32,6 @@
         DELETE FROM calendar_activities WHERE id = #{id}
     </delete>
     <delete id="deleteActivitiesByCalendarId">
-        DELETE FROM calenar_activities WHERE calendar_id = #{calendarId};
+        DELETE FROM calendar_activities WHERE calendar_id = #{calendarId};
     </delete>
 </mapper>
