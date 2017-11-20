@@ -4,14 +4,14 @@
 
 <mapper namespace="com.marklux.mapper.CalendarItemMapper">
     <insert id="createItem" useGeneratedKeys="true" keyProperty="id" parameterType="com.marklux.domain.CalendarItem">
-        INSERT INTO calendar_items(calendar_id,title,item,type,pick_count,format)
-        VALUES (#{calendarId},#{title},#{item},#{type},#{pickCount},#{format})
+        INSERT INTO calendar_items(calendar_id,name,item,type,pick_count,format)
+        VALUES (#{calendarId},#{name},#{item},#{type},#{pickCount},#{format})
     </insert>
     <insert id="createItems" parameterType="java.util.List">
-        INSERT INTO calendar_items(calendar_id,title,item,type,pick_count,format)
+        INSERT INTO calendar_items(calendar_id,name,item,type,pick_count,format)
         VALUES
         <foreach collection="list" item="item" index="index" separator=",">
-            (#{item.calendarId},#{item.title},#{item.item},#{item.type},#{item.pickCount},#{item.format})
+            (#{item.calendarId},#{item.name},#{item.item},#{item.type},#{item.pickCount},#{item.format})
         </foreach>
     </insert>
     <select id="getItems" resultType="com.marklux.domain.CalendarItem">
@@ -20,7 +20,7 @@
     <update id="updateItem" parameterType="com.marklux.domain.CalendarItem">
         UPDATE calendar_items SET
         carlendar_id = #{calendarId}
-        title = #{title}
+        name = #{name}
         item = #{item}
         type = #{type}
         pick_count = #{pickCount}
@@ -31,6 +31,6 @@
         DELETE FROM calendar_items WHERE id = #{id}
     </delete>
     <delete id="deleteItemsByCalendarId">
-        DELETE FROM calendar_items WHERE calendar_id = #{calenarId}
+        DELETE FROM calendar_items WHERE calendar_id = #{calendarId}
     </delete>
 </mapper>

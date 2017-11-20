@@ -4,7 +4,6 @@ import com.marklux.common.Utils;
 import com.marklux.domain.*;
 import com.marklux.dto.response.TodayResponse;
 import com.marklux.exception.BaseException;
-import com.marklux.exception.general.ResourceNotExistException;
 import com.marklux.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -84,10 +83,14 @@ public class CalendarService {
         List<CalendarActivity> picked = pickRandomActivities(activities, calendar.getBadPick() + calendar.getGoodPick());
 
         TodayResponse response = new TodayResponse();
-
         response.setCalendarName(calendar.getTitle());
         response.setCalendarId(calendarId);
         response.setCalendarPicture(calendar.getPicture());
+
+        if (picked.size() < calendar.getGoodPick() + calendar.getBadPick()) {
+            return response;
+        }
+
         for (int i = 0; i < calendar.getGoodPick(); i++) {
             if (picked.get(i) == null) {
                 continue;
@@ -104,7 +107,7 @@ public class CalendarService {
         Collection<CalendarItem> items = calendarItemMapper.getItems(calendarId);
 
         for (CalendarItem it:items) {
-            response.addRecommend(it.getTitle(),pickRandomItems(it.getItem(),it.getPickCount()));
+            response.addRecommend(it.getName(),pickRandomItems(it.getItem(),it.getPickCount()));
         }
 
         return response;

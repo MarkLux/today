@@ -12,7 +12,7 @@ public class CalendarItem implements Model {
     private long id;
     private long calendarId;
     @NotBlank
-    private String title;
+    private String name;
     @NotBlank
     private String item;
     private int type;
@@ -37,12 +37,12 @@ public class CalendarItem implements Model {
         this.calendarId = calendarId;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getItem() {
