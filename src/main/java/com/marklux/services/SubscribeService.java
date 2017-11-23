@@ -68,15 +68,15 @@ public class SubscribeService {
     @Transactional
     public boolean deleteSubscribe(long userId,long calendarId) throws BaseException {
         Calendar calendar = calendarService.getCalendar(calendarId);
-        if (calendar == null) {
-            throw new ResourceNotExistException("日历");
-        }
+
         CalendarSubscribe previous = calendarSubscribedMapper.getSubscribe(userId, calendarId);
         if (previous == null) {
             throw new ResourceNotExistException("订阅");
         }
-        calendar.setSubscribed(calendar.getSubscribed()-1);
-        calendarService.updateCalendar(calendar);
+        if (calendar != null) {
+            calendar.setSubscribed(calendar.getSubscribed()-1);
+            calendarService.updateCalendar(calendar);
+        }
         return calendarSubscribedMapper.deleteSubscribed(userId,calendarId) == 1;
     }
 

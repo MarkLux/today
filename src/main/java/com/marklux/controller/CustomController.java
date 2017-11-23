@@ -153,6 +153,15 @@ public class CustomController {
         return new Response(0,rows);
     }
 
+    @GetMapping("/{calendarId}/activities")
+    public Response getActivities(@PathVariable long calendarId,HttpServletRequest request) throws BaseException {
+        User user = (User)request.getAttribute("user");
+        if (!permissionService.checkOwnership(user.getId(),calendarId)) {
+            throw new PermissionDeniedException();
+        }
+        return new Response(0,customService.getActivities(calendarId));
+    }
+
     @PostMapping("/{calendarId}/items")
     public Response createItems(@RequestBody @Valid List<CalendarItem> list,
                                 @PathVariable long calendarId,BindingResult bindingResult,
@@ -173,6 +182,15 @@ public class CustomController {
         int rows = customService.updateCalendarItems(calendarId,list);
 
         return new Response(0,rows);
+    }
+
+    @GetMapping("/{calendarId}/items")
+    public Response getItems(@PathVariable long calendarId,HttpServletRequest request) throws BaseException {
+        User user = (User)request.getAttribute("user");
+        if (!permissionService.checkOwnership(user.getId(),calendarId)) {
+            throw new PermissionDeniedException();
+        }
+        return new Response(0,customService.getItmes(calendarId));
     }
 
     @GetMapping("/created")

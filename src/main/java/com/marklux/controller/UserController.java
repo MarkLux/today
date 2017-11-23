@@ -1,15 +1,18 @@
 package com.marklux.controller;
 
+import com.marklux.common.Encrypt;
 import com.marklux.common.Response;
 import com.marklux.common.Utils;
 import com.marklux.domain.User;
-import com.marklux.dto.request.UserLoginRequest;
-import com.marklux.dto.request.UserRegisterRequest;
+import com.marklux.dto.request.*;
 import com.marklux.dto.response.UserLoginResponse;
 import com.marklux.exception.BaseException;
+import com.marklux.exception.UnkownException;
 import com.marklux.exception.general.FormValidatorException;
+import com.marklux.exception.general.PasswordException;
 import com.marklux.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +29,8 @@ import java.util.Map;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Value("${qiniu.domain}")
+    private String qiniuDomain;
 
     @PostMapping("/register")
     public Response register(@RequestBody @Valid UserRegisterRequest registerRequest, BindingResult bindingResult) throws BaseException {
@@ -67,5 +72,40 @@ public class UserController {
     public Response getMine(HttpServletRequest request) {
         User user = (User)request.getAttribute("user");
         return new Response(0,user);
+    }
+
+    @PutMapping("/avatar")
+    public Response updateUserAvatar(@RequestBody @Valid UpdateUserAvatarRequest updateUserAvatarRequest,HttpServletRequest request) throws BaseException {
+        User user = (User)request.getAttribute("user");
+
+        user.setAvatar(qiniuDomain + updateUserAvatarRequest.getAvatar());
+        if (!userService.updateUser(user)) {
+            throw new UnkownException("更新用户信息失败");
+        }
+        return new Response(0,null);
+    }
+
+    @PutMapping("/signature")
+    public Response updateUserSignature(@RequestBody @Valid UpdateUserSignatureRequest updateUserSignatureRequest,HttpServletRequest request) throws BaseException {
+        User user = (User)request.getAttribute("user");
+        user.setSignature(updateUserSignatureRequest.getSignature());
+        if (!userService.updateUser(user)) {
+            throw new UnkownException("更新用户信息失败");
+        }
+        return new Response(0,null);
+    }
+
+    @PutMapping("/password")
+    public Response updateUserSignature(@RequestBody @Valid UpdateUserPasswordRequest updateUserPasswordRequest, HttpServletRequest request) throws BaseException {
+        User user = (User)request.getAttribute("user");
+        String old = Encrypt.encrypt(updateUserPasswordRequest.getOldPassword());
+        if (!old.equals(user.getPassword())) {
+            throw new PasswordException();
+        }
+        user.setPassword(Encrypt.encrypt(updateUserPasswordRequest.getNewPassword()));
+        if (!userService.updateUser(user)) {
+            throw new UnkownException("更新用户信息失败");
+        }
+        return new Response(0,null);
     }
 }

@@ -58,6 +58,10 @@ public class CustomService {
         return calendarActivityMapper.createActivities(list);
     }
 
+    public List<CalendarActivity> getActivities(long calendarId) {
+        return new ArrayList<>(calendarActivityMapper.getActivitiesByCalendarId(calendarId));
+    }
+
     /**
      * 更新/创建/修改黄历推荐
      */
@@ -65,6 +69,10 @@ public class CustomService {
     public int updateCalendarItems(long calendarId,List<CalendarItem> list) {
         calendarItemMapper.deleteItemsByCalendarId(calendarId);
         return calendarItemMapper.createItems(list);
+    }
+
+    public List<CalendarItem> getItmes(long calendarId) {
+        return new ArrayList<>(calendarItemMapper.getItems(calendarId));
     }
 
     /**

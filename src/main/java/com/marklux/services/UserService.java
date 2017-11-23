@@ -47,4 +47,8 @@ public class UserService {
     public User getUserById(long userId) {
         return userMapper.getUserById(userId);
     }
+
+    public boolean updateUser(User user) {
+        return userMapper.updateUser(user) == 1;
+    }
 }
