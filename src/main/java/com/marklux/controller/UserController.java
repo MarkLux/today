@@ -82,7 +82,7 @@ public class UserController {
         if (!userService.updateUser(user)) {
             throw new UnkownException("更新用户信息失败");
         }
-        return new Response(0,null);
+        return new Response(0,user.getAvatar());
     }
 
     @PutMapping("/signature")
@@ -96,9 +96,11 @@ public class UserController {
     }
 
     @PutMapping("/password")
-    public Response updateUserSignature(@RequestBody @Valid UpdateUserPasswordRequest updateUserPasswordRequest, HttpServletRequest request) throws BaseException {
+    public Response updateUserPassword(@RequestBody @Valid UpdateUserPasswordRequest updateUserPasswordRequest, HttpServletRequest request) throws BaseException {
         User user = (User)request.getAttribute("user");
         String old = Encrypt.encrypt(updateUserPasswordRequest.getOldPassword());
+        System.out.println(old);
+        System.out.println(user.getPassword());
         if (!old.equals(user.getPassword())) {
             throw new PasswordException();
         }

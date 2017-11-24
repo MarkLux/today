@@ -26,7 +26,7 @@ public interface CalendarMapper {
 
     Collection<Calendar> getCalendarLike(@Param("key") String key,@Param("page") int page,@Param("size") int size);
 
-    CalendarDetail getCalendarDetail(@Param("id") long id);
+    CalendarDetail getCalendarDetail(@Param("id") long id,@Param("userId") long userId);
 
     int checkOwnerShip(@Param("userId") long userId,@Param("calendarId") long calendarId);
 }

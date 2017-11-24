@@ -117,8 +117,8 @@ public class CalendarService {
      * 获取黄历详情页面
      */
 
-    public CalendarDetail getCalendarDetail(long calendarId) {
-        return calendarMapper.getCalendarDetail(calendarId);
+    public CalendarDetail getCalendarDetail(long calendarId,long userId) {
+        return calendarMapper.getCalendarDetail(calendarId,userId);
     }
 
     /**

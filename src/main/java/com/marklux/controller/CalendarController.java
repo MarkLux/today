@@ -36,11 +36,17 @@ public class CalendarController {
     }
 
     @GetMapping("/{calendarId}/detail")
-    public Response getCalendarDetail(@PathVariable long calendarId) throws BaseException {
-        CalendarDetail calendarDetail = calendarService.getCalendarDetail(calendarId);
+    public Response getCalendarDetail(@PathVariable long calendarId,HttpServletRequest request) throws BaseException {
+        long userId = -1;
+        User user = (User)request.getAttribute("user");
+        if (user != null) {
+            userId = user.getId();
+        }
+        CalendarDetail calendarDetail = calendarService.getCalendarDetail(calendarId,userId);
         if (calendarDetail == null) {
             throw new ResourceNotExistException("黄历");
         }
+        calendarDetail.setPreview(calendarService.getToday(calendarId));
         return new Response(0,calendarDetail);
     }
 }

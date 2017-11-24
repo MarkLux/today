@@ -34,10 +34,15 @@
         ORDER BY created_at DESC LIMIT #{page},#{size};
     </select>
     <select id="getCalendarDetail" resultType="com.marklux.domain.CalendarDetail">
-        SELECT calendars.*,users.name as creator_name,users.avatar as creator_avatar
+        SELECT calendars.*,
+        users.name as creator_name,
+        users.avatar as creator_avatar,
+        subscribes.calendar_id > 0 as is_subscribed
         FROM calendars
         LEFT JOIN users
         ON calendars.creator_id = users.id
+        LEFT JOIN (SELECT calendar_id FROM calendar_subscribe WHERE user_id = #{userId}) subscribes
+        ON calendars.id = subscribes.calendar_id
         WHERE calendars.id = #{id};
     </select>
     <select id="checkOwnerShip" resultType="java.lang.Integer">

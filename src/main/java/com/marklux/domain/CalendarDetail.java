@@ -1,5 +1,7 @@
 package com.marklux.domain;
 
+import com.marklux.dto.response.TodayResponse;
+
 /**
  * Created by mark on 17/11/5.
  */
@@ -18,6 +20,25 @@ public class CalendarDetail implements Model {
     private String password;
     private int goodPick;
     private int badPick;
+    private boolean isSubscribed;
+
+    public boolean getIsSubscribed() {
+        return isSubscribed;
+    }
+
+    public void setIsSubscribed(boolean subscribed) {
+        isSubscribed = subscribed;
+    }
+
+    private TodayResponse preview;
+
+    public TodayResponse getPreview() {
+        return preview;
+    }
+
+    public void setPreview(TodayResponse preview) {
+        this.preview = preview;
+    }
 
     public String getCreatorName() {
         return creatorName;
