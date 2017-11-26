@@ -21,6 +21,7 @@ public class CalendarDetail implements Model {
     private int goodPick;
     private int badPick;
     private boolean isSubscribed;
+    private TodayResponse preview;
 
     public boolean getIsSubscribed() {
         return isSubscribed;
@@ -30,7 +31,7 @@ public class CalendarDetail implements Model {
         isSubscribed = subscribed;
     }
 
-    private TodayResponse preview;
+
 
     public TodayResponse getPreview() {
         return preview;

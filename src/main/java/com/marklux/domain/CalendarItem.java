@@ -4,6 +4,8 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by mark on 17/11/3.
@@ -15,11 +17,30 @@ public class CalendarItem implements Model {
     private String name;
     @NotBlank
     private String item;
+
+    private List<String> items; // 用于提前解析
+
     private int type;
     @NotNull
     @Min(1)
+
     private int pickCount;
     private String format;
+
+    public List<String> getItems() {
+        if (this.items == null) {
+            String [] splits = this.item.split(" ");
+            this.items = new ArrayList<String>();
+            for (int i=0;i<splits.length;i++) {
+                this.items.add(splits[i]);
+            }
+        }
+        return this.items;
+    }
+
+    public void setItems(List<String> items) {
+        this.items = items;
+    }
 
     public long getId() {
         return id;

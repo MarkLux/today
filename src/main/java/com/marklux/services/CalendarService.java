@@ -75,7 +75,7 @@ public class CalendarService {
         if (calendar == null) {
             TodayResponse todayResponse = new TodayResponse();
             todayResponse.setCalendarName("该黄历已被作者删除，请取消订阅~");
-            todayResponse.setCalendarId(-1);
+            todayResponse.setCalendarId(calendarId);
             return todayResponse;
         }
 
